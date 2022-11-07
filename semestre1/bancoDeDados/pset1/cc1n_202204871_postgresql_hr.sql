@@ -19,7 +19,7 @@ CREATE TABLE regioes(
 CREATE TABLE paises(
     id_pais CHAR(2) NOT NULL PRIMARY KEY,
     nome VARCHAR(50) NOT NULL UNIQUE,
-    id_regiao INTEGER REFERENCES regioes(id_regiao)
+    id_regiao INTEGER 
 );
 
 CREATE TABLE localizacoes(
@@ -28,14 +28,14 @@ CREATE TABLE localizacoes(
     cep VARCHAR(12),
     cidade VARCHAR(50),
     uf VARCHAR(25),
-    id_pais CHAR(2) REFERENCES paises(id_pais)
+    id_pais CHAR(2)
 );
 
 CREATE TABLE departamentos(
     id_departamento INTEGER NOT NULL PRIMARY KEY,
     nome VARCHAR(50) UNIQUE,
-    id_localizacao INTEGER REFERENCES localizacoes(id_localizacao),
-    id_gerente INTEGER REFERENCES empregados(id_empregado)
+    id_localizacao INTEGER,
+    id_gerente INTEGER
 );
 
 CREATE TABLE cargos(
@@ -46,9 +46,35 @@ CREATE TABLE cargos(
 );
 
 CREATE TABLE historico_cargos(
-    id_empregado INTEGER NOT NULL PRIMARY KEY, 
-    /*data_inicial DATE NOT NULL PRIMARY KEY,*/
+    id_empregado INTEGER NOT NULL, 
+    data_inicial DATE NOT NULL,
     data_final DATE NOT NULL,
-    id_cargo VARCHAR NOT NULL REFERENCES cargos(id_cargo),
-    id_departamento INTEGER REFERENCES departamentos(id_departamento)
+    id_cargo VARCHAR NOT NULL,
+    id_departamento INTEGER,
+    PRIMARY KEY (id_empregado,data_inicial)
 );
+
+ALTER TABLE empregados
+    ADD FOREIGN KEY (id_cargo) REFERENCES cargos(id_cargo);
+ALTER TABLE empregados
+    ADD FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento);
+ALTER TABLE empregados
+    ADD FOREIGN KEY (id_supervisor) REFERENCES empregados(id_empregado);
+    
+
+ALTER TABLE paises
+    ADD FOREIGN KEY (id_regiao) REFERENCES regioes(id_regiao);
+
+ALTER TABLE localizacoes
+    ADD FOREIGN KEY (id_pais) REFERENCES paises(id_pais);
+
+ALTER TABLE departamentos
+    ADD FOREIGN KEY (id_localizacao) REFERENCES localizacoes(id_localizacao);
+ALTER TABLE departamentos
+    ADD FOREIGN KEY (id_gerente) REFERENCES empregados(id_empregado);
+    
+ALTER TABLE historico_cargos
+    ADD FOREIGN KEY (id_cargo) REFERENCES cargos(id_cargo);
+ALTER TABLE historico_cargos
+    ADD FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento);
+
