@@ -1,0 +1,6 @@
+0    [AWT-EventQueue-0] INFO  ca.sqlpower.architect.ArchitectUtils  - Log4J configured successfully
+341  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+405  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+405  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Beginning to read/merge new pl.ini data
+436  [AWT-EventQueue-0] INFO  ca.sqlpower.sql.PlDotIni  - Finished reading file.
+3947 [Thread-5] ERROR ca.sqlpower.architect.swingui.action.CheckForUpdateAction  - Fail to retrieve current version number!
