@@ -133,7 +133,6 @@ COMMENT ON TABLE paises IS 'Tabela que contém as informações sobre os países
 COMMENT ON COLUMN paises.id_pais IS 'Chave primária de identificação dos países.';
 COMMENT ON COLUMN paises.nome IS 'Chave única para indicar o nome do país.';
 COMMENT ON COLUMN paises.id_regiao IS 'Chave primária de identificação das regiões.';
-
 /*Comentários da tabela localizacoes*/
 COMMENT ON TABLE localizacoes IS 'Tabela que contém as informações sobre as localizações dos departamentos.';
 COMMENT ON COLUMN localizacoes.endereco IS 'Coluna que indica o endereço(logadouro e número) do local da empresa.';
@@ -161,4 +160,4 @@ COMMENT ON COLUMN historico_cargos.id_empregado IS 'Chave primária estrangeira 
 COMMENT ON COLUMN historico_cargos.data_inicial IS 'Chave primária que indica a data de início do cargo.';
 COMMENT ON COLUMN historico_cargos.data_final IS 'Data de finalização do cargo.';
 COMMENT ON COLUMN historico_cargos.id_cargo IS 'Chave estrangeira que indica o cargo que foi alterado.';
-COMMENT ON COLUMN historico_cargos.id_departamento_1 IS 'Chave estrangeira para a identificação do departamento.';
+COMMENT ON COLUMN historico_cargos.id_departamento IS 'Chave estrangeira para a identificação do departamento.';

@@ -1,14 +1,14 @@
 # Respostas para perguntas do pset1
 
 1. O que são sistemas de controles de versões? Por que são importantes?  
-    **Resposta:** Eles são, como o nome já diz, sistemas que permitem o controle de versões de um arquvo, permitindo a vizualização e gerenciamento de versões anteriores. Eles são fundamentais para garantir a possibilidade de voltar a versões anteriores e descobrir bugs.
+    **Resposta:** Eles são, como o nome já diz, sistemas que permitem o controle de versões de um arquivo, permitindo a visualização e gerenciamento de versões anteriores. Eles são fundamentais para garantir a possibilidade de voltar a versões anteriores e descobrir bugs.
 
 2. Qual a diferença entre o Git e o GitHub? Como eles estão relacionados?
 É possível usar um sem o outro?  
     **Resposta:** Git é o software/sistema de controle de versão, e o GitHub é um site onde você pode compartilhar todas as versões do seu programa que foram salvas utilizando o Git, e também deixar todas as versões salvas lá. É possível utilizar o Git sem o Github, pois ele fica apenas no seu computador, mas não é possível utilizar o Github sem o Git, já que ele depende das versões salvas pelo git para funcionar.
 
 3. O Git é um sistema distribuído de controle de versões. O que significa isso?  
-**Resposta:** Isso significa que no git cada usuários possui um repositório próprio e específico pra cada um, onde no sistema cental existe um repositório central para todos os usuários
+**Resposta:** Isso significa que no git cada usuários possui um repositório próprio e específico pra cada um, onde no sistema central existe um repositório central para todos os usuários
 
 4. Existem alguns errinhos no projeto HR ilustrado acima (principalmente
 em relação às cardinalidades dos relacionamentos e em relação à obrigatoriedade das
@@ -51,9 +51,9 @@ ruim? Por que?
 **Resposta** Eles serão gravados no esquema público. Isso é ruim pois esse é o esquema padrão e geral, portanto alguma alteração nesse esquema irá afetar todos os outros usuários que estejam conectado nele, portanto o ideal é que cada um utilize em situações normais o próprio esquema.
 13. Agora que você já implementou o projeto no PostgreSQL, tem alguma
 sugestão de melhoria a fazer para o projeto? Como ele poderia ser melhorado?  
-**Resposta:** Algumas possíveis melhoras para ele seria a remoção da tabela regiões e talvez até a remoção da tabela países, pois as informações contidas nessas tabelas poderiam facilmente serem incluidas direto na tabela localizações.
+**Resposta:** Algumas possíveis melhoras para ele seria a remoção da tabela regiões e talvez até a remoção da tabela países, pois as informações contidas nessas tabelas poderiam facilmente serem incluídas direto na tabela localizações.
 
-14. Faça uma comparação dos SGBD que você utilizou. Quais as vantagnes e desvantagens de cada um? Quem tem a melhor documentação?  
+14. Faça uma comparação dos SGBD que você utilizou. Quais as vantagens e desvantagens de cada um? Quem tem a melhor documentação?  
 **Resposta:**
 15. Como você acha que foi seu desempenho neste PSet? Como você foi
 buscando as informações necessárias e lendo as documentações dos SGBD? Você
