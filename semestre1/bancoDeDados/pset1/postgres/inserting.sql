@@ -377,14 +377,7 @@ INSERT INTO localizacoes VALUES
         );
 
 
-REM ****************************insert data into the departamentos table
 
-Prompt ******  Populating departamentos table ....
-
-REM disable integrity constraint to empregados to load data
-
-/*ALTER TABLE departamentos 
-  DISABLE CONSTRAINT dept_mgr_fk;*/
 
 INSERT INTO departamentos VALUES 
         ( 10
@@ -576,10 +569,6 @@ INSERT INTO departamentos VALUES
         );
 
 
-REM ***************************insert data into the cargos table
-
-Prompt ******  Populating cargos table ....
-
 INSERT INTO cargos VALUES 
         ( 'AD_PRES'
         , 'President'
@@ -711,14 +700,9 @@ INSERT INTO cargos VALUES
         );
 
 
-REM ***************************insert data into the empregados table
-
-Prompt ******  Populating empregados table ....
-
 INSERT INTO empregados VALUES 
         ( 100
-        , 'Steven'
-        , 'King'
+        , 'Steven King'
         , 'SKING'
         , '515.123.4567'
         , TO_DATE('17-06-2003', 'dd-MM-yyyy')
@@ -731,8 +715,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 101
-        , 'Neena'
-        , 'Kochhar'
+        , 'Neena Kochhar'
         , 'NKOCHHAR'
         , '515.123.4568'
         , TO_DATE('21-09-2005', 'dd-MM-yyyy')
@@ -745,8 +728,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 102
-        , 'Lex'
-        , 'De Haan'
+        , 'Lex De Haan'
         , 'LDEHAAN'
         , '515.123.4569'
         , TO_DATE('13-01-2001', 'dd-MM-yyyy')
@@ -759,8 +741,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 103
-        , 'Alexander'
-        , 'Hunold'
+        , 'Alexander Hunold'
         , 'AHUNOLD'
         , '590.423.4567'
         , TO_DATE('03-01-2006', 'dd-MM-yyyy')
@@ -773,8 +754,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 104
-        , 'Bruce'
-        , 'Ernst'
+        , 'Bruce Ernst'
         , 'BERNST'
         , '590.423.4568'
         , TO_DATE('21-05-2007', 'dd-MM-yyyy')
@@ -787,8 +767,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 105
-        , 'David'
-        , 'Austin'
+        , 'David Austin'
         , 'DAUSTIN'
         , '590.423.4569'
         , TO_DATE('25-06-2005', 'dd-MM-yyyy')
@@ -801,8 +780,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 106
-        , 'Valli'
-        , 'Pataballa'
+        , 'Valli Pataballa'
         , 'VPATABAL'
         , '590.423.4560'
         , TO_DATE('05-02-2006', 'dd-MM-yyyy')
@@ -815,8 +793,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 107
-        , 'Diana'
-        , 'Lorentz'
+        , 'Diana Lorentz'
         , 'DLORENTZ'
         , '590.423.5567'
         , TO_DATE('07-02-2007', 'dd-MM-yyyy')
@@ -829,8 +806,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 108
-        , 'Nancy'
-        , 'Greenberg'
+        , 'Nancy Greenberg'
         , 'NGREENBE'
         , '515.124.4569'
         , TO_DATE('17-08-2002', 'dd-MM-yyyy')
@@ -843,8 +819,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 109
-        , 'Daniel'
-        , 'Faviet'
+        , 'Daniel Faviet'
         , 'DFAVIET'
         , '515.124.4169'
         , TO_DATE('16-08-2002', 'dd-MM-yyyy')
@@ -857,8 +832,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 110
-        , 'John'
-        , 'Chen'
+        , 'John Chen'
         , 'JCHEN'
         , '515.124.4269'
         , TO_DATE('28-09-2005', 'dd-MM-yyyy')
@@ -871,8 +845,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 111
-        , 'Ismael'
-        , 'Sciarra'
+        , 'Ismael Sciarra'
         , 'ISCIARRA'
         , '515.124.4369'
         , TO_DATE('30-09-2005', 'dd-MM-yyyy')
@@ -885,8 +858,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 112
-        , 'Jose Manuel'
-        , 'Urman'
+        , 'Jose Manuel Urman'
         , 'JMURMAN'
         , '515.124.4469'
         , TO_DATE('07-03-2006', 'dd-MM-yyyy')
@@ -899,8 +871,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 113
-        , 'Luis'
-        , 'Popp'
+        , 'Luis Popp'
         , 'LPOPP'
         , '515.124.4567'
         , TO_DATE('07-12-2007', 'dd-MM-yyyy')
@@ -913,8 +884,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 114
-        , 'Den'
-        , 'Raphaely'
+        , 'Den Raphaely'
         , 'DRAPHEAL'
         , '515.127.4561'
         , TO_DATE('07-12-2002', 'dd-MM-yyyy')
@@ -927,8 +897,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 115
-        , 'Alexander'
-        , 'Khoo'
+        , 'Alexander Khoo'
         , 'AKHOO'
         , '515.127.4562'
         , TO_DATE('18-05-2003', 'dd-MM-yyyy')
@@ -941,8 +910,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 116
-        , 'Shelli'
-        , 'Baida'
+        , 'Shelli Baida'
         , 'SBAIDA'
         , '515.127.4563'
         , TO_DATE('24-12-2005', 'dd-MM-yyyy')
@@ -955,8 +923,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 117
-        , 'Sigal'
-        , 'Tobias'
+        , 'Sigal Tobias'
         , 'STOBIAS'
         , '515.127.4564'
         , TO_DATE('24-07-2005', 'dd-MM-yyyy')
@@ -969,8 +936,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 118
-        , 'Guy'
-        , 'Himuro'
+        , 'Guy Himuro'
         , 'GHIMURO'
         , '515.127.4565'
         , TO_DATE('15-11-2006', 'dd-MM-yyyy')
@@ -983,8 +949,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 119
-        , 'Karen'
-        , 'Colmenares'
+        , 'Karen Colmenares'
         , 'KCOLMENA'
         , '515.127.4566'
         , TO_DATE('10-08-2007', 'dd-MM-yyyy')
@@ -997,8 +962,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 120
-        , 'Matthew'
-        , 'Weiss'
+        , 'Matthew Weiss'
         , 'MWEISS'
         , '650.123.1234'
         , TO_DATE('18-07-2004', 'dd-MM-yyyy')
@@ -1011,8 +975,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 121
-        , 'Adam'
-        , 'Fripp'
+        , 'Adam Fripp'
         , 'AFRIPP'
         , '650.123.2234'
         , TO_DATE('10-04-2005', 'dd-MM-yyyy')
@@ -1025,8 +988,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 122
-        , 'Payam'
-        , 'Kaufling'
+        , 'Payam Kaufling'
         , 'PKAUFLIN'
         , '650.123.3234'
         , TO_DATE('01-05-2003', 'dd-MM-yyyy')
@@ -1039,8 +1001,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 123
-        , 'Shanta'
-        , 'Vollman'
+        , 'Shanta Vollman'
         , 'SVOLLMAN'
         , '650.123.4234'
         , TO_DATE('10-10-2005', 'dd-MM-yyyy')
@@ -1053,8 +1014,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 124
-        , 'Kevin'
-        , 'Mourgos'
+        , 'Kevin Mourgos'
         , 'KMOURGOS'
         , '650.123.5234'
         , TO_DATE('16-11-2007', 'dd-MM-yyyy')
@@ -1067,8 +1027,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 125
-        , 'Julia'
-        , 'Nayer'
+        , 'Julia Nayer'
         , 'JNAYER'
         , '650.124.1214'
         , TO_DATE('16-07-2005', 'dd-MM-yyyy')
@@ -1081,8 +1040,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 126
-        , 'Irene'
-        , 'Mikkilineni'
+        , 'Irene Mikkilineni'
         , 'IMIKKILI'
         , '650.124.1224'
         , TO_DATE('28-09-2006', 'dd-MM-yyyy')
@@ -1095,8 +1053,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 127
-        , 'James'
-        , 'Landry'
+        , 'James Landry'
         , 'JLANDRY'
         , '650.124.1334'
         , TO_DATE('14-01-2007', 'dd-MM-yyyy')
@@ -1109,8 +1066,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 128
-        , 'Steven'
-        , 'Markle'
+        , 'Steven Markle'
         , 'SMARKLE'
         , '650.124.1434'
         , TO_DATE('08-03-2008', 'dd-MM-yyyy')
@@ -1123,8 +1079,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 129
-        , 'Laura'
-        , 'Bissot'
+        , 'Laura Bissot'
         , 'LBISSOT'
         , '650.124.5234'
         , TO_DATE('20-08-2005', 'dd-MM-yyyy')
@@ -1137,8 +1092,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 130
-        , 'Mozhe'
-        , 'Atkinson'
+        , 'Mozhe Atkinson'
         , 'MATKINSO'
         , '650.124.6234'
         , TO_DATE('30-10-2005', 'dd-MM-yyyy')
@@ -1151,8 +1105,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 131
-        , 'James'
-        , 'Marlow'
+        , 'James Marlow'
         , 'JAMRLOW'
         , '650.124.7234'
         , TO_DATE('16-02-2005', 'dd-MM-yyyy')
@@ -1165,8 +1118,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 132
-        , 'TJ'
-        , 'Olson'
+        , 'TJ Olson'
         , 'TJOLSON'
         , '650.124.8234'
         , TO_DATE('10-04-2007', 'dd-MM-yyyy')
@@ -1179,8 +1131,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 133
-        , 'Jason'
-        , 'Mallin'
+        , 'Jason Mallin'
         , 'JMALLIN'
         , '650.127.1934'
         , TO_DATE('14-06-2004', 'dd-MM-yyyy')
@@ -1193,8 +1144,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 134
-        , 'Michael'
-        , 'Rogers'
+        , 'Michael Rogers'
         , 'MROGERS'
         , '650.127.1834'
         , TO_DATE('26-08-2006', 'dd-MM-yyyy')
@@ -1207,8 +1157,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 135
-        , 'Ki'
-        , 'Gee'
+        , 'Ki Gee'
         , 'KGEE'
         , '650.127.1734'
         , TO_DATE('12-12-2007', 'dd-MM-yyyy')
@@ -1221,8 +1170,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 136
-        , 'Hazel'
-        , 'Philtanker'
+        , 'Hazel Philtanker'
         , 'HPHILTAN'
         , '650.127.1634'
         , TO_DATE('06-02-2008', 'dd-MM-yyyy')
@@ -1235,8 +1183,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 137
-        , 'Renske'
-        , 'Ladwig'
+        , 'Renske Ladwig'
         , 'RLADWIG'
         , '650.121.1234'
         , TO_DATE('14-07-2003', 'dd-MM-yyyy')
@@ -1249,8 +1196,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 138
-        , 'Stephen'
-        , 'Stiles'
+        , 'Stephen Stiles'
         , 'SSTILES'
         , '650.121.2034'
         , TO_DATE('26-10-2005', 'dd-MM-yyyy')
@@ -1263,8 +1209,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 139
-        , 'John'
-        , 'Seo'
+        , 'John Seo'
         , 'JSEO'
         , '650.121.2019'
         , TO_DATE('12-02-2006', 'dd-MM-yyyy')
@@ -1277,8 +1222,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 140
-        , 'Joshua'
-        , 'Patel'
+        , 'Joshua Patel'
         , 'JPATEL'
         , '650.121.1834'
         , TO_DATE('06-04-2006', 'dd-MM-yyyy')
@@ -1291,8 +1235,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 141
-        , 'Trenna'
-        , 'Rajs'
+        , 'Trenna Rajs'
         , 'TRAJS'
         , '650.121.8009'
         , TO_DATE('17-10-2003', 'dd-MM-yyyy')
@@ -1305,8 +1248,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 142
-        , 'Curtis'
-        , 'Davies'
+        , 'Curtis Davies'
         , 'CDAVIES'
         , '650.121.2994'
         , TO_DATE('29-01-2005', 'dd-MM-yyyy')
@@ -1319,8 +1261,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 143
-        , 'Randall'
-        , 'Matos'
+        , 'Randall Matos'
         , 'RMATOS'
         , '650.121.2874'
         , TO_DATE('15-03-2006', 'dd-MM-yyyy')
@@ -1333,8 +1274,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 144
-        , 'Peter'
-        , 'Vargas'
+        , 'Peter Vargas'
         , 'PVARGAS'
         , '650.121.2004'
         , TO_DATE('09-07-2006', 'dd-MM-yyyy')
@@ -1347,8 +1287,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 145
-        , 'John'
-        , 'Russell'
+        , 'John Russell'
         , 'JRUSSEL'
         , '011.44.1344.429268'
         , TO_DATE('01-10-2004', 'dd-MM-yyyy')
@@ -1361,8 +1300,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 146
-        , 'Karen'
-        , 'Partners'
+        , 'Karen Partners'
         , 'KPARTNER'
         , '011.44.1344.467268'
         , TO_DATE('05-01-2005', 'dd-MM-yyyy')
@@ -1375,8 +1313,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 147
-        , 'Alberto'
-        , 'Errazuriz'
+        , 'Alberto Errazuriz'
         , 'AERRAZUR'
         , '011.44.1344.429278'
         , TO_DATE('10-03-2005', 'dd-MM-yyyy')
@@ -1389,8 +1326,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 148
-        , 'Gerald'
-        , 'Cambrault'
+        , 'Gerald Cambrault'
         , 'GCAMBRAU'
         , '011.44.1344.619268'
         , TO_DATE('15-10-2007', 'dd-MM-yyyy')
@@ -1403,8 +1339,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 149
-        , 'Eleni'
-        , 'Zlotkey'
+        , 'Eleni Zlotkey'
         , 'EZLOTKEY'
         , '011.44.1344.429018'
         , TO_DATE('29-01-2008', 'dd-MM-yyyy')
@@ -1417,8 +1352,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 150
-        , 'Peter'
-        , 'Tucker'
+        , 'Peter Tucker'
         , 'PTUCKER'
         , '011.44.1344.129268'
         , TO_DATE('30-01-2005', 'dd-MM-yyyy')
@@ -1431,8 +1365,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 151
-        , 'David'
-        , 'Bernstein'
+        , 'David Bernstein'
         , 'DBERNSTE'
         , '011.44.1344.345268'
         , TO_DATE('24-03-2005', 'dd-MM-yyyy')
@@ -1445,8 +1378,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 152
-        , 'Peter'
-        , 'Hall'
+        , 'Peter Hall'
         , 'PHALL'
         , '011.44.1344.478968'
         , TO_DATE('20-08-2005', 'dd-MM-yyyy')
@@ -1459,8 +1391,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 153
-        , 'Christopher'
-        , 'Olsen'
+        , 'Christopher Olsen'
         , 'COLSEN'
         , '011.44.1344.498718'
         , TO_DATE('30-03-2006', 'dd-MM-yyyy')
@@ -1473,8 +1404,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 154
-        , 'Nanette'
-        , 'Cambrault'
+        , 'Nanette Cambrault'
         , 'NCAMBRAU'
         , '011.44.1344.987668'
         , TO_DATE('09-12-2006', 'dd-MM-yyyy')
@@ -1487,8 +1417,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 155
-        , 'Oliver'
-        , 'Tuvault'
+        , 'Oliver Tuvault'
         , 'OTUVAULT'
         , '011.44.1344.486508'
         , TO_DATE('23-11-2007', 'dd-MM-yyyy')
@@ -1501,8 +1430,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 156
-        , 'Janette'
-        , 'King'
+        , 'Janette King'
         , 'JKING'
         , '011.44.1345.429268'
         , TO_DATE('30-01-2004', 'dd-MM-yyyy')
@@ -1515,8 +1443,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 157
-        , 'Patrick'
-        , 'Sully'
+        , 'Patrick Sully'
         , 'PSULLY'
         , '011.44.1345.929268'
         , TO_DATE('04-03-2004', 'dd-MM-yyyy')
@@ -1529,8 +1456,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 158
-        , 'Allan'
-        , 'McEwen'
+        , 'Allan McEwen'
         , 'AMCEWEN'
         , '011.44.1345.829268'
         , TO_DATE('01-08-2004', 'dd-MM-yyyy')
@@ -1543,8 +1469,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 159
-        , 'Lindsey'
-        , 'Smith'
+        , 'Lindsey Smith'
         , 'LSMITH'
         , '011.44.1345.729268'
         , TO_DATE('10-03-2005', 'dd-MM-yyyy')
@@ -1557,8 +1482,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 160
-        , 'Louise'
-        , 'Doran'
+        , 'Louise Doran'
         , 'LDORAN'
         , '011.44.1345.629268'
         , TO_DATE('15-12-2005', 'dd-MM-yyyy')
@@ -1571,8 +1495,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 161
-        , 'Sarath'
-        , 'Sewall'
+        , 'Sarath Sewall'
         , 'SSEWALL'
         , '011.44.1345.529268'
         , TO_DATE('03-11-2006', 'dd-MM-yyyy')
@@ -1585,8 +1508,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 162
-        , 'Clara'
-        , 'Vishney'
+        , 'Clara Vishney'
         , 'CVISHNEY'
         , '011.44.1346.129268'
         , TO_DATE('11-11-2005', 'dd-MM-yyyy')
@@ -1599,8 +1521,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 163
-        , 'Danielle'
-        , 'Greene'
+        , 'Danielle Greene'
         , 'DGREENE'
         , '011.44.1346.229268'
         , TO_DATE('19-03-2007', 'dd-MM-yyyy')
@@ -1613,8 +1534,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 164
-        , 'Mattea'
-        , 'Marvins'
+        , 'Mattea Marvins'
         , 'MMARVINS'
         , '011.44.1346.329268'
         , TO_DATE('24-01-2008', 'dd-MM-yyyy')
@@ -1627,8 +1547,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 165
-        , 'David'
-        , 'Lee'
+        , 'David Lee'
         , 'DLEE'
         , '011.44.1346.529268'
         , TO_DATE('23-02-2008', 'dd-MM-yyyy')
@@ -1641,8 +1560,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 166
-        , 'Sundar'
-        , 'Ande'
+        , 'Sundar Ande'
         , 'SANDE'
         , '011.44.1346.629268'
         , TO_DATE('24-03-2008', 'dd-MM-yyyy')
@@ -1655,8 +1573,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 167
-        , 'Amit'
-        , 'Banda'
+        , 'Amit Banda'
         , 'ABANDA'
         , '011.44.1346.729268'
         , TO_DATE('21-04-2008', 'dd-MM-yyyy')
@@ -1669,8 +1586,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 168
-        , 'Lisa'
-        , 'Ozer'
+        , 'Lisa Ozer'
         , 'LOZER'
         , '011.44.1343.929268'
         , TO_DATE('11-03-2005', 'dd-MM-yyyy')
@@ -1683,8 +1599,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 169  
-        , 'Harrison'
-        , 'Bloom'
+        , 'Harrison Bloom'
         , 'HBLOOM'
         , '011.44.1343.829268'
         , TO_DATE('23-03-2006', 'dd-MM-yyyy')
@@ -1697,8 +1612,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 170
-        , 'Tayler'
-        , 'Fox'
+        , 'Tayler Fox'
         , 'TFOX'
         , '011.44.1343.729268'
         , TO_DATE('24-01-2006', 'dd-MM-yyyy')
@@ -1711,8 +1625,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 171
-        , 'William'
-        , 'Smith'
+        , 'William Smith'
         , 'WSMITH'
         , '011.44.1343.629268'
         , TO_DATE('23-02-2007', 'dd-MM-yyyy')
@@ -1725,8 +1638,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 172
-        , 'Elizabeth'
-        , 'Bates'
+        , 'Elizabeth Bates'
         , 'EBATES'
         , '011.44.1343.529268'
         , TO_DATE('24-03-2007', 'dd-MM-yyyy')
@@ -1739,8 +1651,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 173
-        , 'Sundita'
-        , 'Kumar'
+        , 'Sundita Kumar'
         , 'SKUMAR'
         , '011.44.1343.329268'
         , TO_DATE('21-04-2008', 'dd-MM-yyyy')
@@ -1753,8 +1664,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 174
-        , 'Ellen'
-        , 'Abel'
+        , 'Ellen Abel'
         , 'EABEL'
         , '011.44.1644.429267'
         , TO_DATE('11-05-2004', 'dd-MM-yyyy')
@@ -1767,8 +1677,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 175
-        , 'Alyssa'
-        , 'Hutton'
+        , 'Alyssa Hutton'
         , 'AHUTTON'
         , '011.44.1644.429266'
         , TO_DATE('19-03-2005', 'dd-MM-yyyy')
@@ -1781,8 +1690,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 176
-        , 'Jonathon'
-        , 'Taylor'
+        , 'Jonathon Taylor'
         , 'JTAYLOR'
         , '011.44.1644.429265'
         , TO_DATE('24-03-2006', 'dd-MM-yyyy')
@@ -1795,8 +1703,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 177
-        , 'Jack'
-        , 'Livingston'
+        , 'Jack Livingston'
         , 'JLIVINGS'
         , '011.44.1644.429264'
         , TO_DATE('23-04-2006', 'dd-MM-yyyy')
@@ -1809,8 +1716,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 178
-        , 'Kimberely'
-        , 'Grant'
+        , 'Kimberely Grant'
         , 'KGRANT'
         , '011.44.1644.429263'
         , TO_DATE('24-05-2007', 'dd-MM-yyyy')
@@ -1823,8 +1729,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 179
-        , 'Charles'
-        , 'Johnson'
+        , 'Charles Johnson'
         , 'CJOHNSON'
         , '011.44.1644.429262'
         , TO_DATE('04-01-2008', 'dd-MM-yyyy')
@@ -1837,8 +1742,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 180
-        , 'Winston'
-        , 'Taylor'
+        , 'Winston Taylor'
         , 'WTAYLOR'
         , '650.507.9876'
         , TO_DATE('24-01-2006', 'dd-MM-yyyy')
@@ -1851,8 +1755,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 181
-        , 'Jean'
-        , 'Fleaur'
+        , 'Jean Fleaur'
         , 'JFLEAUR'
         , '650.507.9877'
         , TO_DATE('23-02-2006', 'dd-MM-yyyy')
@@ -1865,8 +1768,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 182
-        , 'Martha'
-        , 'Sullivan'
+        , 'Martha Sullivan'
         , 'MSULLIVA'
         , '650.507.9878'
         , TO_DATE('21-06-2007', 'dd-MM-yyyy')
@@ -1879,8 +1781,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 183
-        , 'Girard'
-        , 'Geoni'
+        , 'Girard Geoni'
         , 'GGEONI'
         , '650.507.9879'
         , TO_DATE('03-02-2008', 'dd-MM-yyyy')
@@ -1893,8 +1794,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 184
-        , 'Nandita'
-        , 'Sarchand'
+        , 'Nandita Sarchand'
         , 'NSARCHAN'
         , '650.509.1876'
         , TO_DATE('27-01-2004', 'dd-MM-yyyy')
@@ -1907,8 +1807,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 185
-        , 'Alexis'
-        , 'Bull'
+        , 'Alexis Bull'
         , 'ABULL'
         , '650.509.2876'
         , TO_DATE('20-02-2005', 'dd-MM-yyyy')
@@ -1921,8 +1820,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 186
-        , 'Julia'
-        , 'Dellinger'
+        , 'Julia Dellinger'
         , 'JDELLING'
         , '650.509.3876'
         , TO_DATE('24-06-2006', 'dd-MM-yyyy')
@@ -1935,8 +1833,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 187
-        , 'Anthony'
-        , 'Cabrio'
+        , 'Anthony Cabrio'
         , 'ACABRIO'
         , '650.509.4876'
         , TO_DATE('07-02-2007', 'dd-MM-yyyy')
@@ -1949,8 +1846,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 188
-        , 'Kelly'
-        , 'Chung'
+        , 'Kelly Chung'
         , 'KCHUNG'
         , '650.505.1876'
         , TO_DATE('14-06-2005', 'dd-MM-yyyy')
@@ -1963,8 +1859,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 189
-        , 'Jennifer'
-        , 'Dilly'
+        , 'Jennifer Dilly'
         , 'JDILLY'
         , '650.505.2876'
         , TO_DATE('13-08-2005', 'dd-MM-yyyy')
@@ -1977,8 +1872,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 190
-        , 'Timothy'
-        , 'Gates'
+        , 'Timothy Gates'
         , 'TGATES'
         , '650.505.3876'
         , TO_DATE('11-07-2006', 'dd-MM-yyyy')
@@ -1991,8 +1885,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 191
-        , 'Randall'
-        , 'Perkins'
+        , 'Randall Perkins'
         , 'RPERKINS'
         , '650.505.4876'
         , TO_DATE('19-12-2007', 'dd-MM-yyyy')
@@ -2005,8 +1898,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 192
-        , 'Sarah'
-        , 'Bell'
+        , 'Sarah Bell'
         , 'SBELL'
         , '650.501.1876'
         , TO_DATE('04-02-2004', 'dd-MM-yyyy')
@@ -2019,8 +1911,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 193
-        , 'Britney'
-        , 'Everett'
+        , 'Britney Everett'
         , 'BEVERETT'
         , '650.501.2876'
         , TO_DATE('03-03-2005', 'dd-MM-yyyy')
@@ -2033,8 +1924,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 194
-        , 'Samuel'
-        , 'McCain'
+        , 'Samuel McCain'
         , 'SMCCAIN'
         , '650.501.3876'
         , TO_DATE('01-07-2006', 'dd-MM-yyyy')
@@ -2047,8 +1937,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 195
-        , 'Vance'
-        , 'Jones'
+        , 'Vance Jones'
         , 'VJONES'
         , '650.501.4876'
         , TO_DATE('17-03-2007', 'dd-MM-yyyy')
@@ -2061,8 +1950,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 196
-        , 'Alana'
-        , 'Walsh'
+        , 'Alana Walsh'
         , 'AWALSH'
         , '650.507.9811'
         , TO_DATE('24-04-2006', 'dd-MM-yyyy')
@@ -2075,8 +1963,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 197
-        , 'Kevin'
-        , 'Feeney'
+        , 'Kevin Feeney'
         , 'KFEENEY'
         , '650.507.9822'
         , TO_DATE('23-05-2006', 'dd-MM-yyyy')
@@ -2089,8 +1976,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 198
-        , 'Donald'
-        , 'OConnell'
+        , 'Donald OConnell'
         , 'DOCONNEL'
         , '650.507.9833'
         , TO_DATE('21-06-2007', 'dd-MM-yyyy')
@@ -2103,8 +1989,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 199
-        , 'Douglas'
-        , 'Grant'
+        , 'Douglas Grant'
         , 'DGRANT'
         , '650.507.9844'
         , TO_DATE('13-01-2008', 'dd-MM-yyyy')
@@ -2117,8 +2002,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 200
-        , 'Jennifer'
-        , 'Whalen'
+        , 'Jennifer Whalen'
         , 'JWHALEN'
         , '515.123.4444'
         , TO_DATE('17-09-2003', 'dd-MM-yyyy')
@@ -2131,8 +2015,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 201
-        , 'Michael'
-        , 'Hartstein'
+        , 'Michael Hartstein'
         , 'MHARTSTE'
         , '515.123.5555'
         , TO_DATE('17-02-2004', 'dd-MM-yyyy')
@@ -2145,8 +2028,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 202
-        , 'Pat'
-        , 'Fay'
+        , 'Pat Fay'
         , 'PFAY'
         , '603.123.6666'
         , TO_DATE('17-08-2005', 'dd-MM-yyyy')
@@ -2159,8 +2041,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 203
-        , 'Susan'
-        , 'Mavris'
+        , 'Susan Mavris'
         , 'SMAVRIS'
         , '515.123.7777'
         , TO_DATE('07-06-2002', 'dd-MM-yyyy')
@@ -2173,8 +2054,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 204
-        , 'Hermann'
-        , 'Baer'
+        , 'Hermann Baer'
         , 'HBAER'
         , '515.123.8888'
         , TO_DATE('07-06-2002', 'dd-MM-yyyy')
@@ -2187,8 +2067,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 205
-        , 'Shelley'
-        , 'Higgins'
+        , 'Shelley Higgins'
         , 'SHIGGINS'
         , '515.123.8080'
         , TO_DATE('07-06-2002', 'dd-MM-yyyy')
@@ -2201,8 +2080,7 @@ INSERT INTO empregados VALUES
 
 INSERT INTO empregados VALUES 
         ( 206
-        , 'William'
-        , 'Gietz'
+        , 'William Gietz'
         , 'WGIETZ'
         , '515.123.8181'
         , TO_DATE('07-06-2002', 'dd-MM-yyyy')
@@ -2213,9 +2091,6 @@ INSERT INTO empregados VALUES
         , 110
         );
 
-REM ********* insert data into the historico_cargos table
-
-Prompt ******  Populating historico_cargos table ....
 
 
 INSERT INTO historico_cargos
@@ -2294,4 +2169,4 @@ VALUES  (200
         , 90
         );
 
-REM enable integrity constraint to departamentos
+\i fkeys.sql;
