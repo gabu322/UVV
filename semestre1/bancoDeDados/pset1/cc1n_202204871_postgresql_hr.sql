@@ -1,4 +1,3 @@
--- Active: 1668552569123@@127.0.0.1@3306@uvv
 --User creation with permissions
 CREATE USER aluno SUPERUSER CREATEDB; 
 
