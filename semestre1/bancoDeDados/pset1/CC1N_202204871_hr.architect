@@ -35,13 +35,13 @@
      <remarks>Salário mensal do empregado.</remarks>
     </column>
     <column id="COL9" populated="true" UUID="a4faf33e-4777-414f-8b83-16fdcb6b2250" autoIncrement="false" autoIncrementSequenceName="empregados_comissao_seq" defaultValue="" name="comissao" nullable="1" physicalName="comissao" precision="4" referenceCount="1" scale="2" sourceDataTypeName="UserDefinedSQLType" type="3" userDefinedTypeUUID="cc1304ea-628a-4fc5-a84a-06ba14759152" >
-     <remarks>Comissão em porcentagem do empregado (nem todos os setores possuem comissão).</remarks>
+     <remarks>Comissão em porcentagem do empregado.</remarks>
     </column>
     <column id="COL10" populated="true" UUID="05128acb-854b-4e07-a90b-e218e2e13e43" autoIncrement="false" autoIncrementSequenceName="empregados_id_departamento_seq" defaultValue="" name="id_departamento" nullable="1" physicalName="id_departamento" precision="0" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks>Chave estrangeira que indica o departamento do empregado.</remarks>
     </column>
     <column id="COL11" populated="true" UUID="2fb9d02a-03ab-4378-8867-0e90b4ca690c" autoIncrement="false" autoIncrementSequenceName="empregados_id_empregado_seq_1" defaultValue="" name="id_supervisor" nullable="1" physicalName="id_supervisor" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
-     <remarks>Chave estrangeira para a própria tabela que indica o supervisor (que também é um empregado).</remarks>
+     <remarks>Chave estrangeira para a tabela que indica o supervisor.</remarks>
     </column>
     </folder>
     <folder id="FOLTAB13" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
@@ -139,7 +139,7 @@
      <remarks>Chave primária para indicar a localização.</remarks>
     </column>
     <column id="COL40" populated="true" UUID="6babe72c-81f1-4128-a5fd-a521a8295ef9" autoIncrement="false" autoIncrementSequenceName="localizacoes_endereco_seq" defaultValue="" name="endereco" nullable="1" physicalName="endereco" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
-     <remarks>Coluna que indica o endereço(logadouro e número) do local da empresa.</remarks>
+     <remarks>Coluna que indica o endereço do local da empresa.</remarks>
     </column>
     <column id="COL41" populated="true" UUID="f4d56a36-76a8-4fb2-a3c1-b104146e5af1" autoIncrement="false" autoIncrementSequenceName="localizacoes_cep_seq" defaultValue="" name="cep" nullable="1" physicalName="cep" precision="12" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>CEP do local da empresa.</remarks>
@@ -151,7 +151,7 @@
      <remarks>Estado (unidade federal) do local da empresa.</remarks>
     </column>
     <column id="COL44" populated="true" UUID="0eb4650c-99e0-4ac0-8f00-a985be87e678" autoIncrement="false" autoIncrementSequenceName="localizacoes_id_pais_seq" defaultValue="" name="id_pais" nullable="1" physicalName="id_pais" precision="2" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="1" userDefinedTypeUUID="67ddc63f-5541-4dd1-9236-632d9d155e80" >
-     <remarks>Chave estrangeira que indica o país que está o local da empresa.</remarks>
+     <remarks>Chave estrangeira que indica o país do local.</remarks>
     </column>
     </folder>
     <folder id="FOLTAB383" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
@@ -177,7 +177,7 @@
      <remarks>Chave estrangeira que indica a localização do departamento.</remarks>
     </column>
     <column id="COL51" populated="true" UUID="79df5c73-fbfd-4469-aef2-923ba2b6585b" autoIncrement="false" autoIncrementSequenceName="departamentos_id_gerente_seq" defaultValue="" name="id_gerente" nullable="1" physicalName="id_gerente" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
-     <remarks>Chave estrangeira para a identificação do gerente do departamento.</remarks>
+     <remarks>Chave estrangeira para o gerente do departamento.</remarks>
     </column>
     </folder>
     <folder id="FOLTAB473" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
@@ -197,7 +197,7 @@
    <remarks>Tabela que contém a informação sobre o histórico de cargos dos empregados entre os departamentos.</remarks>
    <folder id="FOLTAB561" populated="true" name="Columns" physicalName="Columns" type="1">
     <column id="COL57" populated="true" UUID="5cc10c60-59aa-4a82-81f7-17fe98c93769" autoIncrement="false" autoIncrementSequenceName="historico_cargos_id_empregado_seq" defaultValue="" name="id_empregado" nullable="0" physicalName="id_empregado" precision="0" primaryKeySeq="0" referenceCount="2" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
-     <remarks>Chave primária estrangeira que indica o histórico do cargo dos empregados.</remarks>
+     <remarks>Chave primária estrangeira para o empregado.</remarks>
     </column>
     <column id="COL58" populated="true" UUID="873c87fb-cbe9-4cc1-b2fa-94c5635a3534" autoIncrement="false" autoIncrementSequenceName="historico_cargos_data_inicial_seq" defaultValue="" name="data_inicial" nullable="0" physicalName="data_inicial" precision="0" primaryKeySeq="1" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
      <remarks>Chave primária que indica a data de início do cargo.</remarks>
@@ -209,7 +209,7 @@
      <remarks>Chave estrangeira que indica o cargo que foi alterado.</remarks>
     </column>
     <column id="COL61" populated="true" UUID="0f2209fa-a019-4b25-aa74-7cbbd65e915a" autoIncrement="false" autoIncrementSequenceName="id_departamento_seq" defaultValue="" name="id_departamento" nullable="1" physicalName="id_departamento_1" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
-     <remarks>Chave estrangeira para a identificação do departamento.</remarks>
+     <remarks>Chave estrangeira para a identificação do departamento</remarks>
     </column>
     </folder>
     <folder id="FOLTAB563" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
@@ -217,7 +217,7 @@
     <folder id="FOLTAB562" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB564" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX62" populated="true" UUID="2c88149b-9cc7-44bf-a6cf-4224a4092021" clustered="false" name="id_empregado, data_inicial" physicalName="id_empregado__data_inicial" primaryKeyIndex="true" unique="false" >
+    <index id="IDX62" populated="true" UUID="2c88149b-9cc7-44bf-a6cf-4224a4092021" clustered="false" name="id_empregado, data_inicial" physicalName="id_empregado,_data_inicial" primaryKeyIndex="true" unique="false" >
      <index-column id="IDC63" populated="true" UUID="3dd996a1-8000-4f35-b020-03efc91a3c2d" ascendingOrDescending="UNSPECIFIED" column-ref="COL57" name="id_empregado" physicalName="id_empregado" />
      <index-column id="IDC64" populated="true" UUID="110273d5-ada3-411b-a5f5-6912da11f257" ascendingOrDescending="UNSPECIFIED" column-ref="COL58" name="data_inicial" physicalName="data_inicial" />
     </index>
@@ -256,7 +256,7 @@
    </relationship>
   </relationships>
  </target-database>
- <ddl-generator type="ca.sqlpower.architect.ddl.PostgresDDLGenerator" allow-connection="false" target-schema="public"> </ddl-generator>
+ <ddl-generator type="ca.sqlpower.architect.ddl.MySqlDDLGenerator" allow-connection="false"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
  <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">

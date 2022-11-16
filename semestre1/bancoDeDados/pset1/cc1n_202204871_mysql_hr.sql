@@ -1,27 +1,21 @@
--- Active: 1668552569123@@127.0.0.1@3306@uvv
---User creation with permissions
-CREATE USER aluno SUPERUSER CREATEDB; 
+# Active: 1668552569123@@127.0.0.1@3306@uvv
+#User creation
+CREATE USER 'aluno'@'localhost' IDENTIFIED BY 'password';
 
---Connecting to database 'postgres' as user 'aluno';
-\c postgres aluno;
+#Giving user permissions
+GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'aluno'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
 
---Creating database 'uvv' as user 'aluno'
-CREATE DATABASE uvv; 
+#Creating database
+CREATE DATABASE uvv;
 
+#Connecting to user 'aluno'
+system mysql -u aluno -p;
 
---Connecting to database 'uvv' as user 'aluno';
-\c uvv aluno; 
+#Connecting to database 'uvv' as 'aluno'
+use uvv;
 
---Creating schema 'hr'
-CREATE SCHEMA hr; 
-
---Setting base bath to 'hr' schema
-SET SEARCH_PATH TO hr, "$user", public;
-
---Clearing table if they exists
-DROP TABLE IF EXISTS empregados, regioes, paises, departamentos, localizacoes, cargos, historico_cargos;
-
---Creating table 'empregados' with basic restrictions
+#Creating table 'empregados' with basic restrictions
 CREATE TABLE empregados(
     id_empregado INTEGER NOT NULL PRIMARY KEY,
     nome VARCHAR(75) NOT NULL,
@@ -35,20 +29,20 @@ CREATE TABLE empregados(
     id_supervisor INTEGER /*FK empregados*/
 );
 
---Creating table 'regioes' with basic restrictions
+#Creating table 'regioes' with basic restrictions
 CREATE TABLE regioes(
     id_regiao INTEGER NOT NULL PRIMARY KEY,
     nome VARCHAR(25) NOT NULL UNIQUE
 );
 
---Creating table 'paises' with basic restrictions
+#Creating table 'paises' with basic restrictions
 CREATE TABLE paises(
     id_pais CHAR(2) NOT NULL PRIMARY KEY,
     nome VARCHAR(50) NOT NULL UNIQUE,
     id_regiao INTEGER /*FK regioes*/
 );
 
---Creating table 'localizacoes' with basic restrictions
+#Creating table 'localizacoes' with basic restrictions
 CREATE TABLE localizacoes(
     id_localizacao INTEGER NOT NULL PRIMARY KEY,
     endereco VARCHAR(50),
@@ -58,7 +52,7 @@ CREATE TABLE localizacoes(
     id_pais CHAR(2) /*FK paises*/
 );
 
---Creating table 'departamentos' with basic restrictions
+#Creating table 'departamentos' with basic restrictions
 CREATE TABLE departamentos(
     id_departamento INTEGER NOT NULL PRIMARY KEY,
     nome VARCHAR(50) UNIQUE,
@@ -66,7 +60,7 @@ CREATE TABLE departamentos(
     id_gerente INTEGER /*FK empregados*/
 );
 
---Creating table 'cargos' with basic restrictions
+#Creating table 'cargos' with basic restrictions
 CREATE TABLE cargos(
     id_cargo VARCHAR(10) NOT NULL PRIMARY KEY,
     cargo VARCHAR(35) NOT NULL UNIQUE,
@@ -74,74 +68,80 @@ CREATE TABLE cargos(
     salario_maximo DECIMAL(8, 2)
 );
 
---Creating table 'historico_cargos' with basic restrictions
+#Creating table 'historico_cargos' with basic restrictions
 CREATE TABLE historico_cargos(
     id_empregado INTEGER NOT NULL, /*FK empregados*/
     data_inicial DATE NOT NULL,
     data_final DATE NOT NULL,
-    id_cargo VARCHAR NOT NULL, /*FK cargos*/
+    id_cargo VARCHAR(10) NOT NULL, /*FK cargos*/
     id_departamento INTEGER, /*FK departamentos*/
-    PRIMARY KEY (id_empregado,data_inicial)
+    PRIMARY KEY (id_empregado, data_inicial)
 );
 
---Creating comments on table 'empregados'
-COMMENT ON TABLE empregados IS 'Tabela que contém todas as informações dos empregados.';
-COMMENT ON COLUMN empregados.id_empregado IS 'Chave primária de identificação dos empregados.';
-COMMENT ON COLUMN empregados.nome IS 'Nome do empregado.';
-COMMENT ON COLUMN empregados.email IS 'Endereço de email do empregado.';
-COMMENT ON COLUMN empregados.telefone IS 'Telefone do empregado.';
-COMMENT ON COLUMN empregados.data_contratacao IS 'Data de contratação do empregado.';
-COMMENT ON COLUMN empregados.id_cargo IS 'Chave estrangeira que indica o cargo atual do empregado.';
-COMMENT ON COLUMN empregados.salario IS 'Salário mensal do empregado.';
-COMMENT ON COLUMN empregados.comissao IS 'Comissão em porcentagem do empregado (nem todos os setores possuem comissão).';
-COMMENT ON COLUMN empregados.id_departamento IS 'Chave estrangeira que indica o departamento do empregado.';
-COMMENT ON COLUMN empregados.id_supervisor IS 'Chave estrangeira para a própria tabela que indica o supervisor (que também é um empregado).';
-
---Creating comments on table 'regioes'
-COMMENT ON TABLE regioes IS 'Tabela que contém todas as informações das regiões.';
-COMMENT ON COLUMN regioes.id_regiao IS 'Chave primária de identificação das regiões.';
-COMMENT ON COLUMN regioes.nome IS 'Nome das regiões.';
-
---Creating comments on table 'paises'
-COMMENT ON TABLE paises IS 'Tabela que contém as informações sobre os países.';
-COMMENT ON COLUMN paises.id_pais IS 'Chave primária de identificação dos países.';
-COMMENT ON COLUMN paises.nome IS 'Chave única para indicar o nome do país.';
-COMMENT ON COLUMN paises.id_regiao IS 'Chave primária de identificação das regiões.';
-
---Creating comments on table 'localizacoes'
-COMMENT ON TABLE localizacoes IS 'Tabela que contém as informações sobre as localizações dos departamentos.';
-COMMENT ON COLUMN localizacoes.id_localizacao IS 'Chave primária de identificação da localizção.';
-COMMENT ON COLUMN localizacoes.endereco IS 'Coluna que indica o endereço(logadouro e número) do local da empresa.';
-COMMENT ON COLUMN localizacoes.cep IS 'CEP do local da empresa.';
-COMMENT ON COLUMN localizacoes.cidade IS 'Cidade do local da empresa.';
-COMMENT ON COLUMN localizacoes.uf IS 'Estado (unidade federal) do local da empresa.';
-COMMENT ON COLUMN localizacoes.id_pais IS 'Chave estrangeira que indica o país que está o local da empresa.';
-
---Creating comments on table 'departamentos'
-COMMENT ON TABLE departamentos IS 'Tabela que contém as informações de cada departamento da empresa.';
-COMMENT ON COLUMN departamentos.id_departamento IS 'Chave primária de identificação dos departamentos.';
-COMMENT ON COLUMN departamentos.nome IS 'Nome do departamento.';
-COMMENT ON COLUMN departamentos.id_localizacao IS 'Chave estrangeira para a identificação do lugar do departamento.';
-COMMENT ON COLUMN departamentos.id_gerente IS 'Chave estrangeira para a identificação do gerente do departamento.';
-
---Creating comments on table 'cargos'
-COMMENT ON TABLE cargos IS 'Tabela que contém as informações dos cargos (salário mínimo e máximo).';
-COMMENT ON COLUMN cargos.id_cargo IS 'Chave primária de identificação dos cargos.';
-COMMENT ON COLUMN cargos.cargo IS 'Nome do cargo.';
-COMMENT ON COLUMN cargos.salario_minimo IS 'Salário mínimo do cargo.';
-COMMENT ON COLUMN cargos.salario_maximo IS 'Salário máximo do cargo.';
+#Creating comments on table 'empregados'
+ALTER TABLE empregados COMMENT 'Tabela que contém todas as informações dos empregados.';
+ALTER TABLE empregados MODIFY COLUMN id_empregado INTEGER COMMENT 'Chave primária de identificação dos empregados.';
+ALTER TABLE empregados MODIFY COLUMN nome VARCHAR(75) COMMENT  'Nome do empregado.';
+ALTER TABLE empregados MODIFY COLUMN email VARCHAR(35) COMMENT 'Endereço de email do empregado.';
+ALTER TABLE empregados MODIFY COLUMN telefone VARCHAR(20) COMMENT 'Telefone do empregado';
+ALTER TABLE empregados MODIFY COLUMN data_contratacao DATE COMMENT 'Data de contratação do empregado';
+ALTER TABLE empregados MODIFY COLUMN id_cargo VARCHAR(10) COMMENT 'Chave estrageira que indica o cargo atual do empregado.';
+ALTER TABLE empregados MODIFY COLUMN salario DECIMAL(8, 2) COMMENT 'Salário mensal do empregado.';
+ALTER TABLE empregados MODIFY COLUMN comissao DECIMAL(4, 2) COMMENT 'Comissão em porcentagem do empregado';
+ALTER TABLE empregados MODIFY COLUMN id_departamento INTEGER COMMENT 'Chave estrangeira que indica o departamento do empregado.';
+ALTER TABLE empregados MODIFY COLUMN id_supervisor INTEGER COMMENT 'Chave estrangeira para a própria tabela que indica o supervisor';
 
 
---Creating comments on table 'historico_cargos'
-COMMENT ON TABLE historico_cargos IS 'Tabela que contém a informação sobre o histórico de cargos dos empregados entre os departamentos.';
-COMMENT ON COLUMN historico_cargos.id_empregado IS 'Chave primária estrangeira que indica o histórico do cargo dos empregados.';
-COMMENT ON COLUMN historico_cargos.data_inicial IS 'Chave primária que indica a data de início do cargo.';
-COMMENT ON COLUMN historico_cargos.data_final IS 'Data de finalização do cargo.';
-COMMENT ON COLUMN historico_cargos.id_cargo IS 'Chave estrangeira que indica o cargo que foi alterado.';
-COMMENT ON COLUMN historico_cargos.id_departamento IS 'Chave estrangeira para a identificação do departamento.';
+#Creating comments on table 'regioes'
+ALTER TABLE regioes COMMENT 'Tabela que contém todas as informações das regiões.';
+ALTER TABLE regioes MODIFY COLUMN id_regiao INTEGER COMMENT 'Chave primária de identificação das regiões.';
+ALTER TABLE regioes MODIFY COLUMN nome VARCHAR(25) COMMENT 'Nome das regiões.';
 
 
---Start of 'regioes' inserts
+#Creating comments on table 'paises'
+ALTER TABLE paises COMMENT 'Tabela que contém as informações sobre os países.';
+ALTER TABLE paises MODIFY COLUMN id_pais CHAR(2) COMMENT 'Chave primária de identificação dos países.';
+ALTER TABLE paises MODIFY COLUMN nome VARCHAR(50) COMMENT 'Chave única para indicar o nome do país.';
+
+ALTER TABLE paises MODIFY COLUMN id_regiao INTEGER COMMENT'Chave primária de identificação das regiões.';
+
+
+#Creating comments on table 'localizacoes'
+ALTER TABLE localizacoes COMMENT 'Tabela que contém as informações sobre as localizações dos departamentos.';
+ALTER TABLE localizacoes MODIFY COLUMN id_localizacao INTEGER COMMENT 'Coluna que indica o endereço(logadouro e número) do local da empresa.';
+ALTER TABLE localizacoes MODIFY COLUMN endereco VARCHAR(50) COMMENT 'Coluna que indica o endereço do local da empresa.';
+ALTER TABLE localizacoes MODIFY COLUMN cep VARCHAR(12) COMMENT 'CEP do local da empresa.';
+ALTER TABLE localizacoes MODIFY COLUMN cidade VARCHAR(50) COMMENT 'Cidade do local da empresa.';
+ALTER TABLE localizacoes MODIFY COLUMN uf VARCHAR(25) COMMENT 'Estado (unidade federal) do local da empresa.';
+ALTER TABLE localizacoes MODIFY COLUMN id_pais CHAR(2) COMMENT 'Chave estrangeira que indica o país que está o local da empresa.';
+
+
+#Creating comments on table 'departamentos'
+ALTER TABLE departamentos COMMENT 'Tabela que contém as informações de cada departamento da empresa.';
+ALTER TABLE departamentos MODIFY COLUMN id_departamento INTEGER COMMENT 'Chave primária de identificação dos departamentos.';
+ALTER TABLE departamentos MODIFY COLUMN nome VARCHAR(50) COMMENT 'Nome do departamento.';
+ALTER TABLE departamentos MODIFY COLUMN id_localizacao INTEGER COMMENT 'Chave estrangeira para a identificação do lugar do departamento.';
+ALTER TABLE departamentos MODIFY COLUMN id_gerente INTEGER COMMENT 'Chave estrangeira para a identificação do gerente do departamento.';
+
+
+#Creating comments on table 'cargos'
+ALTER TABLE cargos COMMENT 'Tabela que contém as informações dos cargos (salário mínimo e máximo).';
+ALTER TABLE cargos MODIFY COLUMN id_cargo VARCHAR(10) COMMENT 'Chave primária de identificação dos cargos.';
+ALTER TABLE cargos MODIFY COLUMN cargo VARCHAR(35) COMMENT 'Nome do cargo.';
+ALTER TABLE cargos MODIFY COLUMN salario_minimo DECIMAL(8, 2) COMMENT 'Salario mínimo do cargo';
+ALTER TABLE cargos MODIFY COLUMN salario_maximo DECIMAL(8, 2) COMMENT 'Salário máximo do cargo';
+
+
+#Creating comments on table 'historico_cargos'
+ALTER TABLE historico_cargos COMMENT 'Tabela que contém a informação sobre o histórico de cargos dos empregados entre os departamentos.';
+ALTER TABLE historico_cargos MODIFY COLUMN id_empregado INTEGER COMMENT 'Chave primária estrangeira que indica o histórico do cargo dos empregados.';
+ALTER TABLE historico_cargos MODIFY COLUMN data_inicial DATE COMMENT 'Chave primária que indica a data de início do cargo.';
+ALTER TABLE historico_cargos MODIFY COLUMN data_final DATE COMMENT 'Data de finalização do cargo.';
+ALTER TABLE historico_cargos MODIFY COLUMN id_cargo VARCHAR(10) COMMENT 'Chave estrangeira que indica o cargo que foi alterado.';
+ALTER TABLE historico_cargos MODIFY COLUMN id_departamento INTEGER COMMENT 'Chave estrangeira para a identificação do departamento.';
+
+
+#Start of 'regioes' inserts
 INSERT INTO regioes VALUES 
         ( 1
         , 'Europe' 
@@ -163,7 +163,7 @@ INSERT INTO regioes VALUES
         );
 
 
---Start of 'paises' inserts
+#Start of 'paises' inserts
 INSERT INTO paises VALUES 
         ( 'IT'
         , 'Italy'
@@ -316,7 +316,7 @@ INSERT INTO paises VALUES
 
 
 
---Start of 'localizacoes' inserts
+#Start of 'localizacoes' inserts
 INSERT INTO localizacoes VALUES 
         ( 1000 
         , '1297 Via Cola di Rie'
@@ -525,7 +525,7 @@ INSERT INTO localizacoes VALUES
         );
 
 
---Start of 'departamentos' inserts
+#Start of 'departamentos' inserts
 INSERT INTO departamentos(id_departamento, nome, id_gerente, id_localizacao) VALUES 
         ( 10
         , 'Administration'
@@ -716,7 +716,7 @@ INSERT INTO departamentos(id_departamento, nome, id_gerente, id_localizacao) VAL
         );
 
 
---Start of 'cargos' inserts
+#Start of 'cargos' inserts
 INSERT INTO cargos VALUES 
         ( 'AD_PRES'
         , 'President'
@@ -848,13 +848,13 @@ INSERT INTO cargos VALUES
         );
 
 
---Start of 'empregados' inserts
+#Start of 'empregados' inserts
 INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id_cargo, salario, comissao, id_supervisor, id_departamento) VALUES 
         ( 100
         , 'Steven King'
         , 'SKING'
         , '515.123.4567'
-        , TO_DATE('17-06-2003', 'dd-MM-yyyy')
+        , STR_TO_DATE('17,06,2003', '%d,%m,%Y')
         , 'AD_PRES'
         , 24000
         , NULL
@@ -867,7 +867,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Neena Kochhar'
         , 'NKOCHHAR'
         , '515.123.4568'
-        , TO_DATE('21-09-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('21,09,2005', '%d,%m,%Y')
         , 'AD_VP'
         , 17000
         , NULL
@@ -880,7 +880,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Lex De Haan'
         , 'LDEHAAN'
         , '515.123.4569'
-        , TO_DATE('13-01-2001', 'dd-MM-yyyy')
+        , STR_TO_DATE('13,01,2001', '%d,%m,%Y')
         , 'AD_VP'
         , 17000
         , NULL
@@ -893,7 +893,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Alexander Hunold'
         , 'AHUNOLD'
         , '590.423.4567'
-        , TO_DATE('03-01-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('03,01,2006', '%d,%m,%Y')
         , 'IT_PROG'
         , 9000
         , NULL
@@ -906,7 +906,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Bruce Ernst'
         , 'BERNST'
         , '590.423.4568'
-        , TO_DATE('21-05-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('21,05,2007', '%d,%m,%Y')
         , 'IT_PROG'
         , 6000
         , NULL
@@ -919,7 +919,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'David Austin'
         , 'DAUSTIN'
         , '590.423.4569'
-        , TO_DATE('25-06-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('25,06,2005', '%d,%m,%Y')
         , 'IT_PROG'
         , 4800
         , NULL
@@ -932,7 +932,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Valli Pataballa'
         , 'VPATABAL'
         , '590.423.4560'
-        , TO_DATE('05-02-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('05,02,2006', '%d,%m,%Y')
         , 'IT_PROG'
         , 4800
         , NULL
@@ -945,7 +945,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Diana Lorentz'
         , 'DLORENTZ'
         , '590.423.5567'
-        , TO_DATE('07-02-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('07,02,2007', '%d,%m,%Y')
         , 'IT_PROG'
         , 4200
         , NULL
@@ -958,7 +958,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Nancy Greenberg'
         , 'NGREENBE'
         , '515.124.4569'
-        , TO_DATE('17-08-2002', 'dd-MM-yyyy')
+        , STR_TO_DATE('17,08,2002', '%d,%m,%Y')
         , 'FI_MGR'
         , 12008
         , NULL
@@ -971,7 +971,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Daniel Faviet'
         , 'DFAVIET'
         , '515.124.4169'
-        , TO_DATE('16-08-2002', 'dd-MM-yyyy')
+        , STR_TO_DATE('16,08,2002', '%d,%m,%Y')
         , 'FI_ACCOUNT'
         , 9000
         , NULL
@@ -984,7 +984,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'John Chen'
         , 'JCHEN'
         , '515.124.4269'
-        , TO_DATE('28-09-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('28,09,2005', '%d,%m,%Y')
         , 'FI_ACCOUNT'
         , 8200
         , NULL
@@ -997,7 +997,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Ismael Sciarra'
         , 'ISCIARRA'
         , '515.124.4369'
-        , TO_DATE('30-09-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('30,09,2005', '%d,%m,%Y')
         , 'FI_ACCOUNT'
         , 7700
         , NULL
@@ -1010,7 +1010,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Jose Manuel Urman'
         , 'JMURMAN'
         , '515.124.4469'
-        , TO_DATE('07-03-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('07,03,2006', '%d,%m,%Y')
         , 'FI_ACCOUNT'
         , 7800
         , NULL
@@ -1023,7 +1023,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Luis Popp'
         , 'LPOPP'
         , '515.124.4567'
-        , TO_DATE('07-12-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('07,12,2007', '%d,%m,%Y')
         , 'FI_ACCOUNT'
         , 6900
         , NULL
@@ -1036,7 +1036,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Den Raphaely'
         , 'DRAPHEAL'
         , '515.127.4561'
-        , TO_DATE('07-12-2002', 'dd-MM-yyyy')
+        , STR_TO_DATE('07,12,2002', '%d,%m,%Y')
         , 'PU_MAN'
         , 11000
         , NULL
@@ -1049,7 +1049,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Alexander Khoo'
         , 'AKHOO'
         , '515.127.4562'
-        , TO_DATE('18-05-2003', 'dd-MM-yyyy')
+        , STR_TO_DATE('18,05,2003', '%d,%m,%Y')
         , 'PU_CLERK'
         , 3100
         , NULL
@@ -1062,7 +1062,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Shelli Baida'
         , 'SBAIDA'
         , '515.127.4563'
-        , TO_DATE('24-12-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,12,2005', '%d,%m,%Y')
         , 'PU_CLERK'
         , 2900
         , NULL
@@ -1075,7 +1075,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Sigal Tobias'
         , 'STOBIAS'
         , '515.127.4564'
-        , TO_DATE('24-07-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,07,2005', '%d,%m,%Y')
         , 'PU_CLERK'
         , 2800
         , NULL
@@ -1088,7 +1088,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Guy Himuro'
         , 'GHIMURO'
         , '515.127.4565'
-        , TO_DATE('15-11-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('15,11,2006', '%d,%m,%Y')
         , 'PU_CLERK'
         , 2600
         , NULL
@@ -1101,7 +1101,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Karen Colmenares'
         , 'KCOLMENA'
         , '515.127.4566'
-        , TO_DATE('10-08-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('10,08,2007', '%d,%m,%Y')
         , 'PU_CLERK'
         , 2500
         , NULL
@@ -1114,7 +1114,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Matthew Weiss'
         , 'MWEISS'
         , '650.123.1234'
-        , TO_DATE('18-07-2004', 'dd-MM-yyyy')
+        , STR_TO_DATE('18,07,2004', '%d,%m,%Y')
         , 'ST_MAN'
         , 8000
         , NULL
@@ -1127,7 +1127,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Adam Fripp'
         , 'AFRIPP'
         , '650.123.2234'
-        , TO_DATE('10-04-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('10,04,2005', '%d,%m,%Y')
         , 'ST_MAN'
         , 8200
         , NULL
@@ -1140,7 +1140,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Payam Kaufling'
         , 'PKAUFLIN'
         , '650.123.3234'
-        , TO_DATE('01-05-2003', 'dd-MM-yyyy')
+        , STR_TO_DATE('01,05,2003', '%d,%m,%Y')
         , 'ST_MAN'
         , 7900
         , NULL
@@ -1153,7 +1153,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Shanta Vollman'
         , 'SVOLLMAN'
         , '650.123.4234'
-        , TO_DATE('10-10-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('10,10,2005', '%d,%m,%Y')
         , 'ST_MAN'
         , 6500
         , NULL
@@ -1166,7 +1166,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Kevin Mourgos'
         , 'KMOURGOS'
         , '650.123.5234'
-        , TO_DATE('16-11-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('16,11,2007', '%d,%m,%Y')
         , 'ST_MAN'
         , 5800
         , NULL
@@ -1179,7 +1179,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Julia Nayer'
         , 'JNAYER'
         , '650.124.1214'
-        , TO_DATE('16-07-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('16,07,2005', '%d,%m,%Y')
         , 'ST_CLERK'
         , 3200
         , NULL
@@ -1192,7 +1192,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Irene Mikkilineni'
         , 'IMIKKILI'
         , '650.124.1224'
-        , TO_DATE('28-09-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('28,09,2006', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2700
         , NULL
@@ -1205,7 +1205,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'James Landry'
         , 'JLANDRY'
         , '650.124.1334'
-        , TO_DATE('14-01-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('14,01,2007', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2400
         , NULL
@@ -1218,7 +1218,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Steven Markle'
         , 'SMARKLE'
         , '650.124.1434'
-        , TO_DATE('08-03-2008', 'dd-MM-yyyy')
+        , STR_TO_DATE('08,03,2008', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2200
         , NULL
@@ -1231,7 +1231,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Laura Bissot'
         , 'LBISSOT'
         , '650.124.5234'
-        , TO_DATE('20-08-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('20,08,2005', '%d,%m,%Y')
         , 'ST_CLERK'
         , 3300
         , NULL
@@ -1244,7 +1244,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Mozhe Atkinson'
         , 'MATKINSO'
         , '650.124.6234'
-        , TO_DATE('30-10-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('30,10,2005', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2800
         , NULL
@@ -1257,7 +1257,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'James Marlow'
         , 'JAMRLOW'
         , '650.124.7234'
-        , TO_DATE('16-02-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('16,02,2005', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2500
         , NULL
@@ -1270,7 +1270,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'TJ Olson'
         , 'TJOLSON'
         , '650.124.8234'
-        , TO_DATE('10-04-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('10,04,2007', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2100
         , NULL
@@ -1283,7 +1283,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Jason Mallin'
         , 'JMALLIN'
         , '650.127.1934'
-        , TO_DATE('14-06-2004', 'dd-MM-yyyy')
+        , STR_TO_DATE('14,06,2004', '%d,%m,%Y')
         , 'ST_CLERK'
         , 3300
         , NULL
@@ -1296,7 +1296,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Michael Rogers'
         , 'MROGERS'
         , '650.127.1834'
-        , TO_DATE('26-08-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('26,08,2006', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2900
         , NULL
@@ -1309,7 +1309,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Ki Gee'
         , 'KGEE'
         , '650.127.1734'
-        , TO_DATE('12-12-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('12,12,2007', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2400
         , NULL
@@ -1322,7 +1322,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Hazel Philtanker'
         , 'HPHILTAN'
         , '650.127.1634'
-        , TO_DATE('06-02-2008', 'dd-MM-yyyy')
+        , STR_TO_DATE('06,02,2008', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2200
         , NULL
@@ -1335,7 +1335,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Renske Ladwig'
         , 'RLADWIG'
         , '650.121.1234'
-        , TO_DATE('14-07-2003', 'dd-MM-yyyy')
+        , STR_TO_DATE('14,07,2003', '%d,%m,%Y')
         , 'ST_CLERK'
         , 3600
         , NULL
@@ -1348,7 +1348,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Stephen Stiles'
         , 'SSTILES'
         , '650.121.2034'
-        , TO_DATE('26-10-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('26,10,2005', '%d,%m,%Y')
         , 'ST_CLERK'
         , 3200
         , NULL
@@ -1361,7 +1361,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'John Seo'
         , 'JSEO'
         , '650.121.2019'
-        , TO_DATE('12-02-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('12,02,2006', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2700
         , NULL
@@ -1374,7 +1374,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Joshua Patel'
         , 'JPATEL'
         , '650.121.1834'
-        , TO_DATE('06-04-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('06,04,2006', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2500
         , NULL
@@ -1387,7 +1387,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Trenna Rajs'
         , 'TRAJS'
         , '650.121.8009'
-        , TO_DATE('17-10-2003', 'dd-MM-yyyy')
+        , STR_TO_DATE('17,10,2003', '%d,%m,%Y')
         , 'ST_CLERK'
         , 3500
         , NULL
@@ -1400,7 +1400,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Curtis Davies'
         , 'CDAVIES'
         , '650.121.2994'
-        , TO_DATE('29-01-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('29,01,2005', '%d,%m,%Y')
         , 'ST_CLERK'
         , 3100
         , NULL
@@ -1413,7 +1413,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Randall Matos'
         , 'RMATOS'
         , '650.121.2874'
-        , TO_DATE('15-03-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('15,03,2006', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2600
         , NULL
@@ -1426,7 +1426,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Peter Vargas'
         , 'PVARGAS'
         , '650.121.2004'
-        , TO_DATE('09-07-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('09,07,2006', '%d,%m,%Y')
         , 'ST_CLERK'
         , 2500
         , NULL
@@ -1439,7 +1439,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'John Russell'
         , 'JRUSSEL'
         , '011.44.1344.429268'
-        , TO_DATE('01-10-2004', 'dd-MM-yyyy')
+        , STR_TO_DATE('01,10,2004', '%d,%m,%Y')
         , 'SA_MAN'
         , 14000
         , .4
@@ -1452,7 +1452,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Karen Partners'
         , 'KPARTNER'
         , '011.44.1344.467268'
-        , TO_DATE('05-01-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('05,01,2005', '%d,%m,%Y')
         , 'SA_MAN'
         , 13500
         , .3
@@ -1465,7 +1465,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Alberto Errazuriz'
         , 'AERRAZUR'
         , '011.44.1344.429278'
-        , TO_DATE('10-03-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('10,03,2005', '%d,%m,%Y')
         , 'SA_MAN'
         , 12000
         , .3
@@ -1478,7 +1478,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Gerald Cambrault'
         , 'GCAMBRAU'
         , '011.44.1344.619268'
-        , TO_DATE('15-10-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('15,10,2007', '%d,%m,%Y')
         , 'SA_MAN'
         , 11000
         , .3
@@ -1491,7 +1491,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Eleni Zlotkey'
         , 'EZLOTKEY'
         , '011.44.1344.429018'
-        , TO_DATE('29-01-2008', 'dd-MM-yyyy')
+        , STR_TO_DATE('29,01,2008', '%d,%m,%Y')
         , 'SA_MAN'
         , 10500
         , .2
@@ -1504,7 +1504,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Peter Tucker'
         , 'PTUCKER'
         , '011.44.1344.129268'
-        , TO_DATE('30-01-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('30,01,2005', '%d,%m,%Y')
         , 'SA_REP'
         , 10000
         , .3
@@ -1517,7 +1517,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'David Bernstein'
         , 'DBERNSTE'
         , '011.44.1344.345268'
-        , TO_DATE('24-03-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,03,2005', '%d,%m,%Y')
         , 'SA_REP'
         , 9500
         , .25
@@ -1530,7 +1530,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Peter Hall'
         , 'PHALL'
         , '011.44.1344.478968'
-        , TO_DATE('20-08-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('20,08,2005', '%d,%m,%Y')
         , 'SA_REP'
         , 9000
         , .25
@@ -1543,7 +1543,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Christopher Olsen'
         , 'COLSEN'
         , '011.44.1344.498718'
-        , TO_DATE('30-03-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('30,03,2006', '%d,%m,%Y')
         , 'SA_REP'
         , 8000
         , .2
@@ -1556,7 +1556,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Nanette Cambrault'
         , 'NCAMBRAU'
         , '011.44.1344.987668'
-        , TO_DATE('09-12-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('09,12,2006', '%d,%m,%Y')
         , 'SA_REP'
         , 7500
         , .2
@@ -1569,7 +1569,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Oliver Tuvault'
         , 'OTUVAULT'
         , '011.44.1344.486508'
-        , TO_DATE('23-11-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('23,11,2007', '%d,%m,%Y')
         , 'SA_REP'
         , 7000
         , .15
@@ -1582,7 +1582,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Janette King'
         , 'JKING'
         , '011.44.1345.429268'
-        , TO_DATE('30-01-2004', 'dd-MM-yyyy')
+        , STR_TO_DATE('30,01,2004', '%d,%m,%Y')
         , 'SA_REP'
         , 10000
         , .35
@@ -1595,7 +1595,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Patrick Sully'
         , 'PSULLY'
         , '011.44.1345.929268'
-        , TO_DATE('04-03-2004', 'dd-MM-yyyy')
+        , STR_TO_DATE('04,03,2004', '%d,%m,%Y')
         , 'SA_REP'
         , 9500
         , .35
@@ -1608,7 +1608,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Allan McEwen'
         , 'AMCEWEN'
         , '011.44.1345.829268'
-        , TO_DATE('01-08-2004', 'dd-MM-yyyy')
+        , STR_TO_DATE('01,08,2004', '%d,%m,%Y')
         , 'SA_REP'
         , 9000
         , .35
@@ -1621,7 +1621,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Lindsey Smith'
         , 'LSMITH'
         , '011.44.1345.729268'
-        , TO_DATE('10-03-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('10,03,2005', '%d,%m,%Y')
         , 'SA_REP'
         , 8000
         , .3
@@ -1634,7 +1634,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Louise Doran'
         , 'LDORAN'
         , '011.44.1345.629268'
-        , TO_DATE('15-12-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('15,12,2005', '%d,%m,%Y')
         , 'SA_REP'
         , 7500
         , .3
@@ -1647,7 +1647,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Sarath Sewall'
         , 'SSEWALL'
         , '011.44.1345.529268'
-        , TO_DATE('03-11-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('03,11,2006', '%d,%m,%Y')
         , 'SA_REP'
         , 7000
         , .25
@@ -1660,7 +1660,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Clara Vishney'
         , 'CVISHNEY'
         , '011.44.1346.129268'
-        , TO_DATE('11-11-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('11,11,2005', '%d,%m,%Y')
         , 'SA_REP'
         , 10500
         , .25
@@ -1673,7 +1673,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Danielle Greene'
         , 'DGREENE'
         , '011.44.1346.229268'
-        , TO_DATE('19-03-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('19,03,2007', '%d,%m,%Y')
         , 'SA_REP'
         , 9500
         , .15
@@ -1686,7 +1686,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Mattea Marvins'
         , 'MMARVINS'
         , '011.44.1346.329268'
-        , TO_DATE('24-01-2008', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,01,2008', '%d,%m,%Y')
         , 'SA_REP'
         , 7200
         , .10
@@ -1699,7 +1699,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'David Lee'
         , 'DLEE'
         , '011.44.1346.529268'
-        , TO_DATE('23-02-2008', 'dd-MM-yyyy')
+        , STR_TO_DATE('23,02,2008', '%d,%m,%Y')
         , 'SA_REP'
         , 6800
         , .1
@@ -1712,7 +1712,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Sundar Ande'
         , 'SANDE'
         , '011.44.1346.629268'
-        , TO_DATE('24-03-2008', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,03,2008', '%d,%m,%Y')
         , 'SA_REP'
         , 6400
         , .10
@@ -1725,7 +1725,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Amit Banda'
         , 'ABANDA'
         , '011.44.1346.729268'
-        , TO_DATE('21-04-2008', 'dd-MM-yyyy')
+        , STR_TO_DATE('21,04,2008', '%d,%m,%Y')
         , 'SA_REP'
         , 6200
         , .10
@@ -1738,7 +1738,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Lisa Ozer'
         , 'LOZER'
         , '011.44.1343.929268'
-        , TO_DATE('11-03-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('11,03,2005', '%d,%m,%Y')
         , 'SA_REP'
         , 11500
         , .25
@@ -1751,7 +1751,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Harrison Bloom'
         , 'HBLOOM'
         , '011.44.1343.829268'
-        , TO_DATE('23-03-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('23,03,2006', '%d,%m,%Y')
         , 'SA_REP'
         , 10000
         , .20
@@ -1764,7 +1764,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Tayler Fox'
         , 'TFOX'
         , '011.44.1343.729268'
-        , TO_DATE('24-01-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,01,2006', '%d,%m,%Y')
         , 'SA_REP'
         , 9600
         , .20
@@ -1777,7 +1777,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'William Smith'
         , 'WSMITH'
         , '011.44.1343.629268'
-        , TO_DATE('23-02-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('23,02,2007', '%d,%m,%Y')
         , 'SA_REP'
         , 7400
         , .15
@@ -1790,7 +1790,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Elizabeth Bates'
         , 'EBATES'
         , '011.44.1343.529268'
-        , TO_DATE('24-03-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,03,2007', '%d,%m,%Y')
         , 'SA_REP'
         , 7300
         , .15
@@ -1803,7 +1803,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Sundita Kumar'
         , 'SKUMAR'
         , '011.44.1343.329268'
-        , TO_DATE('21-04-2008', 'dd-MM-yyyy')
+        , STR_TO_DATE('21,04,2008', '%d,%m,%Y')
         , 'SA_REP'
         , 6100
         , .10
@@ -1816,7 +1816,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Ellen Abel'
         , 'EABEL'
         , '011.44.1644.429267'
-        , TO_DATE('11-05-2004', 'dd-MM-yyyy')
+        , STR_TO_DATE('11,05,2004', '%d,%m,%Y')
         , 'SA_REP'
         , 11000
         , .30
@@ -1829,7 +1829,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Alyssa Hutton'
         , 'AHUTTON'
         , '011.44.1644.429266'
-        , TO_DATE('19-03-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('19,03,2005', '%d,%m,%Y')
         , 'SA_REP'
         , 8800
         , .25
@@ -1842,7 +1842,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Jonathon Taylor'
         , 'JTAYLOR'
         , '011.44.1644.429265'
-        , TO_DATE('24-03-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,03,2006', '%d,%m,%Y')
         , 'SA_REP'
         , 8600
         , .20
@@ -1855,7 +1855,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Jack Livingston'
         , 'JLIVINGS'
         , '011.44.1644.429264'
-        , TO_DATE('23-04-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('23,04,2006', '%d,%m,%Y')
         , 'SA_REP'
         , 8400
         , .20
@@ -1868,7 +1868,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Kimberely Grant'
         , 'KGRANT'
         , '011.44.1644.429263'
-        , TO_DATE('24-05-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,05,2007', '%d,%m,%Y')
         , 'SA_REP'
         , 7000
         , .15
@@ -1881,7 +1881,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Charles Johnson'
         , 'CJOHNSON'
         , '011.44.1644.429262'
-        , TO_DATE('04-01-2008', 'dd-MM-yyyy')
+        , STR_TO_DATE('04,01,2008', '%d,%m,%Y')
         , 'SA_REP'
         , 6200
         , .10
@@ -1894,7 +1894,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Winston Taylor'
         , 'WTAYLOR'
         , '650.507.9876'
-        , TO_DATE('24-01-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,01,2006', '%d,%m,%Y')
         , 'SH_CLERK'
         , 3200
         , NULL
@@ -1907,7 +1907,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Jean Fleaur'
         , 'JFLEAUR'
         , '650.507.9877'
-        , TO_DATE('23-02-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('23,02,2006', '%d,%m,%Y')
         , 'SH_CLERK'
         , 3100
         , NULL
@@ -1920,7 +1920,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Martha Sullivan'
         , 'MSULLIVA'
         , '650.507.9878'
-        , TO_DATE('21-06-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('21,06,2007', '%d,%m,%Y')
         , 'SH_CLERK'
         , 2500
         , NULL
@@ -1933,7 +1933,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Girard Geoni'
         , 'GGEONI'
         , '650.507.9879'
-        , TO_DATE('03-02-2008', 'dd-MM-yyyy')
+        , STR_TO_DATE('03,02,2008', '%d,%m,%Y')
         , 'SH_CLERK'
         , 2800
         , NULL
@@ -1946,7 +1946,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Nandita Sarchand'
         , 'NSARCHAN'
         , '650.509.1876'
-        , TO_DATE('27-01-2004', 'dd-MM-yyyy')
+        , STR_TO_DATE('27,01,2004', '%d,%m,%Y')
         , 'SH_CLERK'
         , 4200
         , NULL
@@ -1959,7 +1959,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Alexis Bull'
         , 'ABULL'
         , '650.509.2876'
-        , TO_DATE('20-02-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('20,02,2005', '%d,%m,%Y')
         , 'SH_CLERK'
         , 4100
         , NULL
@@ -1972,7 +1972,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Julia Dellinger'
         , 'JDELLING'
         , '650.509.3876'
-        , TO_DATE('24-06-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,06,2006', '%d,%m,%Y')
         , 'SH_CLERK'
         , 3400
         , NULL
@@ -1985,7 +1985,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Anthony Cabrio'
         , 'ACABRIO'
         , '650.509.4876'
-        , TO_DATE('07-02-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('07,02,2007', '%d,%m,%Y')
         , 'SH_CLERK'
         , 3000
         , NULL
@@ -1998,7 +1998,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Kelly Chung'
         , 'KCHUNG'
         , '650.505.1876'
-        , TO_DATE('14-06-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('14,06,2005', '%d,%m,%Y')
         , 'SH_CLERK'
         , 3800
         , NULL
@@ -2011,7 +2011,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Jennifer Dilly'
         , 'JDILLY'
         , '650.505.2876'
-        , TO_DATE('13-08-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('13,08,2005', '%d,%m,%Y')
         , 'SH_CLERK'
         , 3600
         , NULL
@@ -2024,7 +2024,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Timothy Gates'
         , 'TGATES'
         , '650.505.3876'
-        , TO_DATE('11-07-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('11,07,2006', '%d,%m,%Y')
         , 'SH_CLERK'
         , 2900
         , NULL
@@ -2037,7 +2037,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Randall Perkins'
         , 'RPERKINS'
         , '650.505.4876'
-        , TO_DATE('19-12-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('19,12,2007', '%d,%m,%Y')
         , 'SH_CLERK'
         , 2500
         , NULL
@@ -2050,7 +2050,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Sarah Bell'
         , 'SBELL'
         , '650.501.1876'
-        , TO_DATE('04-02-2004', 'dd-MM-yyyy')
+        , STR_TO_DATE('04,02,2004', '%d,%m,%Y')
         , 'SH_CLERK'
         , 4000
         , NULL
@@ -2063,7 +2063,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Britney Everett'
         , 'BEVERETT'
         , '650.501.2876'
-        , TO_DATE('03-03-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('03,03,2005', '%d,%m,%Y')
         , 'SH_CLERK'
         , 3900
         , NULL
@@ -2076,7 +2076,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Samuel McCain'
         , 'SMCCAIN'
         , '650.501.3876'
-        , TO_DATE('01-07-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('01,07,2006', '%d,%m,%Y')
         , 'SH_CLERK'
         , 3200
         , NULL
@@ -2089,7 +2089,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Vance Jones'
         , 'VJONES'
         , '650.501.4876'
-        , TO_DATE('17-03-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('17,03,2007', '%d,%m,%Y')
         , 'SH_CLERK'
         , 2800
         , NULL
@@ -2102,7 +2102,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Alana Walsh'
         , 'AWALSH'
         , '650.507.9811'
-        , TO_DATE('24-04-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,04,2006', '%d,%m,%Y')
         , 'SH_CLERK'
         , 3100
         , NULL
@@ -2115,7 +2115,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Kevin Feeney'
         , 'KFEENEY'
         , '650.507.9822'
-        , TO_DATE('23-05-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('23,05,2006', '%d,%m,%Y')
         , 'SH_CLERK'
         , 3000
         , NULL
@@ -2128,7 +2128,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Donald OConnell'
         , 'DOCONNEL'
         , '650.507.9833'
-        , TO_DATE('21-06-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('21,06,2007', '%d,%m,%Y')
         , 'SH_CLERK'
         , 2600
         , NULL
@@ -2141,7 +2141,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Douglas Grant'
         , 'DGRANT'
         , '650.507.9844'
-        , TO_DATE('13-01-2008', 'dd-MM-yyyy')
+        , STR_TO_DATE('13,01,2008', '%d,%m,%Y')
         , 'SH_CLERK'
         , 2600
         , NULL
@@ -2154,7 +2154,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Jennifer Whalen'
         , 'JWHALEN'
         , '515.123.4444'
-        , TO_DATE('17-09-2003', 'dd-MM-yyyy')
+        , STR_TO_DATE('17,09,2003', '%d,%m,%Y')
         , 'AD_ASST'
         , 4400
         , NULL
@@ -2167,7 +2167,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Michael Hartstein'
         , 'MHARTSTE'
         , '515.123.5555'
-        , TO_DATE('17-02-2004', 'dd-MM-yyyy')
+        , STR_TO_DATE('17,02,2004', '%d,%m,%Y')
         , 'MK_MAN'
         , 13000
         , NULL
@@ -2180,7 +2180,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Pat Fay'
         , 'PFAY'
         , '603.123.6666'
-        , TO_DATE('17-08-2005', 'dd-MM-yyyy')
+        , STR_TO_DATE('17,08,2005', '%d,%m,%Y')
         , 'MK_REP'
         , 6000
         , NULL
@@ -2193,7 +2193,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Susan Mavris'
         , 'SMAVRIS'
         , '515.123.7777'
-        , TO_DATE('07-06-2002', 'dd-MM-yyyy')
+        , STR_TO_DATE('07,06,2002', '%d,%m,%Y')
         , 'HR_REP'
         , 6500
         , NULL
@@ -2206,7 +2206,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Hermann Baer'
         , 'HBAER'
         , '515.123.8888'
-        , TO_DATE('07-06-2002', 'dd-MM-yyyy')
+        , STR_TO_DATE('07,06,2002', '%d,%m,%Y')
         , 'PR_REP'
         , 10000
         , NULL
@@ -2219,7 +2219,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'Shelley Higgins'
         , 'SHIGGINS'
         , '515.123.8080'
-        , TO_DATE('07-06-2002', 'dd-MM-yyyy')
+        , STR_TO_DATE('07,06,2002', '%d,%m,%Y')
         , 'AC_MGR'
         , 12008
         , NULL
@@ -2232,7 +2232,7 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         , 'William Gietz'
         , 'WGIETZ'
         , '515.123.8181'
-        , TO_DATE('07-06-2002', 'dd-MM-yyyy')
+        , STR_TO_DATE('07,06,2002', '%d,%m,%Y')
         , 'AC_ACCOUNT'
         , 8300
         , NULL
@@ -2241,110 +2241,124 @@ INSERT INTO empregados(id_empregado, nome, email, telefone, data_contratacao, id
         );
 
 
---Start of 'historico_cargos' inserts
+#Start of 'historico_cargos' inserts
 INSERT INTO historico_cargos
 VALUES (102
-       , TO_DATE('13-01-2001', 'dd-MM-yyyy')
-       , TO_DATE('24-07-2006', 'dd-MM-yyyy')
+       , STR_TO_DATE('13,01,2001', '%d,%m,%Y')
+       , STR_TO_DATE('24,07,2006', '%d,%m,%Y')
        , 'IT_PROG'
        , 60);
 
 INSERT INTO historico_cargos
 VALUES (101
-       , TO_DATE('21-09-1997', 'dd-MM-yyyy')
-       , TO_DATE('27-10-2001', 'dd-MM-yyyy')
+       , STR_TO_DATE('21,09,1997', '%d,%m,%Y')
+       , STR_TO_DATE('27,10,2001', '%d,%m,%Y')
        , 'AC_ACCOUNT'
        , 110);
 
 INSERT INTO historico_cargos
 VALUES (101
-       , TO_DATE('28-10-2001', 'dd-MM-yyyy')
-       , TO_DATE('15-03-2005', 'dd-MM-yyyy')
+       , STR_TO_DATE('28,10,2001', '%d,%m,%Y')
+       , STR_TO_DATE('15,03,2005', '%d,%m,%Y')
        , 'AC_MGR'
        , 110);
 
 INSERT INTO historico_cargos
 VALUES (201
-       , TO_DATE('17-02-2004', 'dd-MM-yyyy')
-       , TO_DATE('19-12-2007', 'dd-MM-yyyy')
+       , STR_TO_DATE('17,02,2004', '%d,%m,%Y')
+       , STR_TO_DATE('19,12,2007', '%d,%m,%Y')
        , 'MK_REP'
        , 20);
 
 INSERT INTO historico_cargos
 VALUES  (114
-        , TO_DATE('24-03-2006', 'dd-MM-yyyy')
-        , TO_DATE('31-12-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,03,2006', '%d,%m,%Y')
+        , STR_TO_DATE('31,12,2007', '%d,%m,%Y')
         , 'ST_CLERK'
         , 50
         );
 
 INSERT INTO historico_cargos
 VALUES  (122
-        , TO_DATE('01-01-2007', 'dd-MM-yyyy')
-        , TO_DATE('31-12-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('01,01,2007', '%d,%m,%Y')
+        , STR_TO_DATE('31,12,2007', '%d,%m,%Y')
         , 'ST_CLERK'
         , 50
         );
 
 INSERT INTO historico_cargos
 VALUES  (200
-        , TO_DATE('17-09-1995', 'dd-MM-yyyy')
-        , TO_DATE('17-06-2001', 'dd-MM-yyyy')
+        , STR_TO_DATE('17,09,1995', '%d,%m,%Y')
+        , STR_TO_DATE('17,06,2001', '%d,%m,%Y')
         , 'AD_ASST'
         , 90
         );
 
 INSERT INTO historico_cargos
 VALUES  (176
-        , TO_DATE('24-03-2006', 'dd-MM-yyyy')
-        , TO_DATE('31-12-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('24,03,2006', '%d,%m,%Y')
+        , STR_TO_DATE('31,12,2006', '%d,%m,%Y')
         , 'SA_REP'
         , 80
         );
 
 INSERT INTO historico_cargos
 VALUES  (176
-        , TO_DATE('01-01-2007', 'dd-MM-yyyy')
-        , TO_DATE('31-12-2007', 'dd-MM-yyyy')
+        , STR_TO_DATE('01,01,2007', '%d,%m,%Y')
+        , STR_TO_DATE('31,12,2007', '%d,%m,%Y')
         , 'SA_MAN'
         , 80
         );
 
 INSERT INTO historico_cargos
 VALUES  (200
-        , TO_DATE('01-07-2002', 'dd-MM-yyyy')
-        , TO_DATE('31-12-2006', 'dd-MM-yyyy')
+        , STR_TO_DATE('01,07,2002', '%d,%m,%Y')
+        , STR_TO_DATE('31,12,2006', '%d,%m,%Y')
         , 'AC_ACCOUNT'
         , 90
         );
 
 
---Foreign keys of table 'empregados'
-ALTER TABLE empregados
-    ADD FOREIGN KEY (id_cargo) REFERENCES cargos(id_cargo);
-ALTER TABLE empregados
-    ADD FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento);
-ALTER TABLE empregados
-    ADD FOREIGN KEY (id_supervisor) REFERENCES empregados(id_empregado);
-    
---Foreign keys of table 'paises'
-ALTER TABLE paises
-    ADD FOREIGN KEY (id_regiao) REFERENCES regioes(id_regiao);
 
---Foreign keys of table 'localizacoes'
-ALTER TABLE localizacoes
-    ADD FOREIGN KEY (id_pais) REFERENCES paises(id_pais);
+#Foreign keys of table 'empregados'
+ALTER TABLE empregados ADD CONSTRAINT cargos_empregados_fk
+FOREIGN KEY (id_cargo)
+REFERENCES cargos (id_cargo);
+ALTER TABLE empregados ADD CONSTRAINT departamentos_empregados_fk
+FOREIGN KEY (id_departamento)
+REFERENCES departamentos (id_departamento);
+ALTER TABLE empregados ADD CONSTRAINT empregados_empregados_fk
+FOREIGN KEY (id_supervisor)
+REFERENCES empregados (id_empregado);
 
---Foreign keys of table 'departamentos'
-ALTER TABLE departamentos
-    ADD FOREIGN KEY (id_localizacao) REFERENCES localizacoes(id_localizacao);
-ALTER TABLE departamentos ADD CONSTRAINT departamentos_gerente
-    FOREIGN KEY (id_gerente) REFERENCES empregados(id_empregado);
+#Foreign keys of table 'paises'
+ALTER TABLE paises ADD CONSTRAINT regioes_paises_fk
+FOREIGN KEY (id_regiao)
+REFERENCES regioes (id_regiao);
 
---Foreign keys of table 'historico cargos'
-ALTER TABLE historico_cargos
-    ADD FOREIGN KEY (id_cargo) REFERENCES cargos(id_cargo);
-ALTER TABLE historico_cargos
-    ADD FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento);
-ALTER TABLE historico_cargos
-    ADD FOREIGN KEY (id_empregado) REFERENCES empregados(id_empregado);
+#Foreign keys of table 'localizacoes'
+ALTER TABLE localizacoes ADD CONSTRAINT paises_localizacoes_fk
+FOREIGN KEY (id_pais)
+REFERENCES paises (id_pais);
+
+#Foreign keys of table 'departamentos'
+ALTER TABLE departamentos ADD CONSTRAINT localizacoes_departamentos_fk
+FOREIGN KEY (id_localizacao)
+REFERENCES localizacoes (id_localizacao);
+
+ALTER TABLE departamentos ADD CONSTRAINT empregados_departamentos_fk
+FOREIGN KEY (id_gerente)
+REFERENCES empregados (id_empregado);
+
+#Foreign keys of table 'historico_cargos'
+ALTER TABLE historico_cargos ADD CONSTRAINT cargos_historico_cargos_fk
+FOREIGN KEY (id_cargo)
+REFERENCES cargos (id_cargo);
+
+ALTER TABLE historico_cargos ADD CONSTRAINT departamentos_historico_cargos_fk
+FOREIGN KEY (id_departamento)
+REFERENCES departamentos (id_departamento);
+
+ALTER TABLE historico_cargos ADD CONSTRAINT empregados_historico_cargos_fk
+FOREIGN KEY (id_empregado)
+REFERENCES empregados (id_empregado);
